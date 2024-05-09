@@ -32,7 +32,9 @@ exports.login = async (req, res) => {
 
     // Verificar si el usuario existe
     const user = await getUserByEmail(email);
+    console.log(email, user);
     if (!user) {
+      console.log("Usuario no existe");
       return res.status(400).json({ message: 'Ese Usuario no existe' });
     }
 
@@ -65,7 +67,18 @@ exports.verifyToken = (req, res) => {
     jwt.verify(token, process.env.JWT_SECRET);
     res.json({ valid: true });
   } catch (err) {
-    console.error('Error en verifyToken:', err);
-    res.status(401).json({ message: 'Token inválido', valid: false });
+    // Check is instance of TokenExpiredError
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({ message: 'Token expirado', valid: false });
+    }
+    // Check if instance of JsonWebTokenError
+    if (err.name === 'JsonWebTokenError') {
+      return res.status(401).json({ message: 'Token inválido', valid: false });
+    }
+
+    // Check if instance of Error
+    if (err instanceof Error) {
+      return res.status(500).json({ message: 'Error en el servidor', valid: false });
+    }
   }
 };
