@@ -1,10 +1,15 @@
 const express = require('express')
-const authRoutes = require('./authRoutes');
-const userRoutes = require('./userRoutes');
+const authRoutes = require('./public/authRoutes');
+const privateRouter = require('./private/router');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
+// Public routes
 router.use('/auth', authRoutes);
-router.use('/users', userRoutes);
+
+// Private routes
+// router.use(authMiddleware); // same as below
+router.use('/', authMiddleware, privateRouter);
 
 module.exports = router;

@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');
 const { unleashHTMLWelcome } = require('./helpers/unleash-welcome-a-la-nico');
 const router = require('./routes/router');
 
