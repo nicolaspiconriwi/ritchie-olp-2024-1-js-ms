@@ -7,8 +7,8 @@ const router = require('./routes/router');
 const app = express();
 
 // Middlewares
-app.use(cors());
-app.use(express.json());
+app.use(cors()); // Distinguir el origen de las peticiones
+app.use(express.json()); // Parsear el body de las peticiones
 
 // Rutas
 app.get('/', unleashHTMLWelcome);
