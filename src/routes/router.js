@@ -10,6 +10,6 @@ router.use('/auth', authRoutes);
 
 // Private routes
 // router.use(authMiddleware); // same as below
-router.use('/', authMiddleware, privateRouter);
+router.use('/', privateRouter);
 
 module.exports = router;
