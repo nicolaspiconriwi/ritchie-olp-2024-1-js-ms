@@ -1,4 +1,5 @@
 const { pool } = require('../config/database');
+const { poolmysql } = require('../config/database-mysql');
 
 exports.getAll = async () => {
   const query = `SELECT * FROM users`;
@@ -7,12 +8,32 @@ exports.getAll = async () => {
 }
 
 exports.save = async (username, email, hashedPassword) => {
-  const query = `INSERT INTO users (username, email, password)
-                 VALUES ($1, $2, $3)
-                 RETURNING id, username, email`;
+  // const query = `INSERT INTO users (username, email, password)
+  //                VALUES ($1, $2, $3)
+  //                RETURNING id, username, email`;
+  // const values = [username, email, hashedPassword];
+  // const { rows } = await pool.query(query, values);
+  // return rows[0];
+
+  // Con mysql
+  const query = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
   const values = [username, email, hashedPassword];
-  const { rows } = await pool.query(query, values);
-  return rows[0];
+
+  try {
+    // Ejecuta la consulta usando el pool
+    const [results] = await poolmysql.execute(query, values);
+    
+    // Si necesitas retornar algún valor, puedes obtener el ID insertado
+    return {
+      id: results.insertId,
+      username,
+      email
+    };
+  } catch (err) {
+    // Maneja el error adecuadamente
+    console.error('Error ejecutando la consulta:', err);
+    throw err;
+  }
 };
 
 exports.update = async (id, data) => {
