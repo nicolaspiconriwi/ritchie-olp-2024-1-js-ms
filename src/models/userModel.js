@@ -1,5 +1,5 @@
 const { pool } = require('../config/database');
-const { poolmysql } = require('../config/database-mysql');
+const { pool: poolmysql } = require('../config/database-mysql');
 
 exports.getAll = async () => {
   const query = `SELECT * FROM users`;
@@ -8,32 +8,32 @@ exports.getAll = async () => {
 }
 
 exports.save = async (username, email, hashedPassword) => {
-  // const query = `INSERT INTO users (username, email, password)
-  //                VALUES ($1, $2, $3)
-  //                RETURNING id, username, email`;
-  // const values = [username, email, hashedPassword];
-  // const { rows } = await pool.query(query, values);
-  // return rows[0];
+
+  // con postgres
+  const query = `INSERT INTO users (username, email, password)
+                 VALUES ($1, $2, $3)
+                 RETURNING id, username, email`;
+  const values = [username, email, hashedPassword];
+  const { rows } = await pool.query(query, values);
+  return rows[0];
 
   // Con mysql
-  const query = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
-  const values = [username, email, hashedPassword];
-
-  try {
-    // Ejecuta la consulta usando el pool
-    const [results] = await poolmysql.execute(query, values);
-    
-    // Si necesitas retornar algún valor, puedes obtener el ID insertado
-    return {
-      id: results.insertId,
-      username,
-      email
-    };
-  } catch (err) {
-    // Maneja el error adecuadamente
-    console.error('Error ejecutando la consulta:', err);
-    throw err;
-  }
+  // const query = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
+  // const values = [username, email, hashedPassword];
+  // try {
+  //   // Ejecuta la consulta usando el pool
+  //   const [resp] = await poolmysql.query(query, values);
+  //   console.log('Resultados de la consulta:', resp.insertId);
+  //   return {
+  //     id: resp.insertId,
+  //     username,
+  //     email
+  //   };
+  // } catch (err) {
+  //   // Maneja el error adecuadamente
+  //   console.error('Error ejecutando la consulta:', err);
+  //   throw err;
+  // }
 };
 
 exports.update = async (id, data) => {
@@ -52,9 +52,15 @@ exports.delete = async (id) => {
 };
 
 exports.findByEmail = async (email) => {
+  // Con postgres
   const query = `SELECT * FROM users WHERE email = $1`;
   const { rows } = await pool.query(query, [email]);
   return rows[0];
+
+  // Con mysql
+  // const query = `SELECT * FROM users WHERE email = ?`;
+  // const [rows] = await poolmysql.query(query, [email]);
+  // return rows[0];
 };
 
 exports.findById = async (id) => {

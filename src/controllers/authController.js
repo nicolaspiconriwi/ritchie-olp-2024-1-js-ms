@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
     }
 
     // Encriptar contraseña
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(10); // Genera un salt de
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Crear nuevo usuario

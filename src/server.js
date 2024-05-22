@@ -10,7 +10,7 @@ pool.query('SELECT NOW()', (err, res) => {
     console.error('Error al conectar a la base de datos:', err);
     process.exit(1);
   } else {
-    console.log('Conexión a la base de datos exitosa:', res.rows);
+    console.log('Connected to the PostgreSQL database.:', res.rows);
     app.listen(port, () => {
       console.log(`Servidor ejecutándose en http://localhost:${port}`);
     });
