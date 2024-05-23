@@ -18,6 +18,5 @@ exports.save = async (name, description, content = {}) => {
 exports.findById = async (id) => {
   const query = `SELECT * FROM routes WHERE id = $1`;
   const { rows } = await pool.query(query, [id]);
-  // TODO: handle case
   return rows[0];
 };

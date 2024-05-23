@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
     // Crear nuevo usuario
     user = await save(username, email, hashedPassword);
 
-    if(!user) {
+    if (!user) {
       return res.status(404).json({ message: 'Error al crear el usuario' });
     }
 

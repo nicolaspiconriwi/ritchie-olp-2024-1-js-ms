@@ -11,7 +11,7 @@ const router = express.Router();
 router.use('/users', userRoutes);
 
 // Challenges
-router.use('/challenges', challengeRoutes);
+// router.use('/challenges', challengeRoutes);
 
 // Modules
 router.use('/modules', moduleRoutes);

@@ -16,7 +16,7 @@ exports.save = async (name, description, id_language, content = {}) => {
 };
 
 exports.findById = async (id) => {
-  const query = `SELECT * FROM users WHERE id = $1`;
+  const query = `SELECT * FROM modules WHERE id = $1`;
   const { rows } = await pool.query(query, [id]);
   // TODO: handle case
   return rows[0];

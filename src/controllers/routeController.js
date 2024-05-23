@@ -2,10 +2,10 @@ const { findById, getAll, save } = require("../models/routeModel");
 
 exports.getAll = async (req, res) => {
     try {
-        const users = await getAll();
-        res.status(200).json(users);
+        const routes = await getAll();
+        res.status(200).json(routes);
     } catch (err) {
-        console.error('Error en getAllUsers:', err);
+        console.error('Error en getAllRoutes:', err);
         res.status(500).json({ message: 'Error en el servidor' });
     }
 }
@@ -15,7 +15,7 @@ exports.getById = async (req, res) => {
         const { id } = req.params;
         const user = await findById(id);
         if (!user) {
-            return res.status(400).json({ message: 'Ese Usuario no existe' });
+            return res.status(400).json({ message: 'Esa ruta no existe' });
         }
         res.json(user);
     } catch (err) {
@@ -30,7 +30,7 @@ exports.save = async (req, res) => {
         const user = await save(name, description, content);
         res.status(201).json(user);
     } catch (err) {
-        console.error('Error en saveUser:', err);
+        console.error('Error en saveRoute:', err);
         res.status(500).json({ message: 'Error en el servidor' });
     }
 }

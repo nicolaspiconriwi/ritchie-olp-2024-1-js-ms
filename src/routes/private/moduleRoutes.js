@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAll, save, getByLanguageId } = require('../../controllers/moduleController');
+const { getAll, save, getByLanguageId, getById } = require('../../controllers/moduleController');
 
 const router = express.Router();
 
