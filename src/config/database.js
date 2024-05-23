@@ -1,12 +1,12 @@
 const { Pool } = require('pg');
 
 // Verifica si la variable de entorno DATABASE_URL está definida
-if (!process.env.DATABASE_URL) {
-  throw new Error('DATABASE_URL no está definida en el archivo .env');
-}
+// if ("postgres://default:pMGZQUc0h1vt@ep-polished-term-a4mniado-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require") {
+//   throw new Error('DATABASE_URL no está definida en el archivo .env');
+// }
 
 // Crea una nueva instancia de Pool con la cadena de conexión a la base de datos
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const pool = new Pool({ connectionString: "postgres://default:pMGZQUc0h1vt@ep-polished-term-a4mniado-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require" });
 
 // Exporta el pool para que pueda ser utilizado en otros archivos
 module.exports = { pool };

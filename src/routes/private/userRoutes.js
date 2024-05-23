@@ -3,10 +3,10 @@ const { getAll, getById, update, delete: deleteUser } = require('../../controlle
 
 const router = express.Router();
 
-// router.get('/', getAll);
-// router.get('/:id', getById);
-// router.put('/:id', update);
-// router.delete('/:id', deleteUser);
+router.get('/', getAll);
+router.get('/:id', getById);
+router.put('/:id', update);
+router.delete('/:id', deleteUser);
 
 
 module.exports = router;
