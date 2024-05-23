@@ -1,10 +1,10 @@
 const express = require('express');
-const { getAll, getById} = require('../../controllers/routeController');
+const { getAll, getById, save} = require('../../controllers/routeController');
 
 const router = express.Router();
 
+router.post('/', save);
 router.get('/', getAll);
-router.post('/', create);
 router.get('/:id', getById);
 
 module.exports = router;
